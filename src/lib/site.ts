@@ -1,5 +1,5 @@
 export const site = {
-  email: "contato@startupslab.com",
+  email: "contato@startupslab.com.br",
   phone: "+55 12 98887-0530",
   phoneHref: "tel:+5512988870530",
   whatsapp: "https://wa.me/5512988870530",
