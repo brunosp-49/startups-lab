@@ -18,7 +18,8 @@ import { CareersForm } from "@/components/ui/InlineForms";
 export const metadata: Metadata = {
   title: "Carreira",
   description:
-    "Trabalhe na Startups Lab. Procuramos gente curiosa para construir produtos, testar ideias e fazer negócios crescerem com tecnologia, marketing e IA.",
+    "Trabalhe na Startups Lab. Procuramos gente para construir aplicativos, software e produtos digitais com startups.",
+  alternates: { canonical: "/carreira" },
 };
 
 const perks = [
@@ -42,10 +43,10 @@ export default function CarreiraPage() {
   return (
     <Reveal>
       <PageHero
-        eyebrow="Institucional · Carreira"
+        eyebrow="Carreira"
         title={["Construa com a", "gente o que ainda", "não existe."]}
         text="Se você gosta de resolver problemas de verdade, aprende rápido e quer ver o seu trabalho no ar, tem lugar para você no Lab."
-        crumbs={[{ label: "Institucional" }, { label: "Carreira" }]}
+        crumbs={[{ label: "Sobre nós", href: "/sobre" }, { label: "Carreira" }]}
       >
         <LeadButton href="#candidatura">Candidate-se</LeadButton>
       </PageHero>

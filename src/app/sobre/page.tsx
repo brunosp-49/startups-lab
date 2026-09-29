@@ -15,16 +15,17 @@ import { Reveal } from "@/components/ui/Reveal";
 import { PageHero } from "@/components/ui/PageHero";
 import { SectionIntro } from "@/components/ui/SectionIntro";
 import { ScrollText } from "@/components/ui/ScrollText";
-import { Stats } from "@/components/ui/Stats";
 import { CTASection } from "@/components/ui/CTASection";
+import Link from "next/link";
 import { LeadButton } from "@/components/ui/LeadButton";
 import { Pillars } from "@/components/Pillars";
 import { team, values } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Sobre",
+  title: "Empresa de desenvolvimento de software",
   description:
-    "Conheça a Startups Lab: um laboratório de negócios digitais que valida ideias, constrói produtos e acelera empresas com marketing e IA.",
+    "A Startups Lab é uma empresa de desenvolvimento de software e aplicativos para startups. Um laboratório que tira ideias do papel e coloca produtos no ar.",
+  alternates: { canonical: "/sobre" },
 };
 
 const roleIcons: Record<string, Icon> = {
@@ -42,10 +43,10 @@ export default function SobrePage() {
   return (
     <Reveal>
       <PageHero
-        eyebrow="Institucional"
+        eyebrow="O Lab"
         title={["Negócios nascem", "de bons experimentos."]}
-        text="Somos um time de estrategistas, engenheiros, designers e profissionais de marketing que trata cada ideia como uma hipótese — e trabalha para provar, construir e escalar o que funciona."
-        crumbs={[{ label: "Institucional" }, { label: "Sobre" }]}
+        text="Experimentar, aprender, construir, lançar e evoluir. Somos um time de produto e tecnologia para quem tem uma ideia e precisa vê-la no ar."
+        crumbs={[{ label: "Sobre nós" }]}
         image={{ src: "/images/about-1.jpg", alt: "Time da Startups Lab reunido" }}
       >
         <LeadButton>Fale com a gente</LeadButton>
@@ -61,8 +62,8 @@ export default function SobrePage() {
             Manifesto
           </p>
           <ScrollText
-            text="Acreditamos que ideia boa é ideia testada. Começamos pequeno, medimos tudo e aprendemos rápido. O que funciona vira produto. O que não funciona vira aprendizado. E cada aprendizado deixa o próximo passo mais seguro."
-            highlight={["testada", "medimos", "produto", "aprendizado"]}
+            text="Uma ideia entra como experimento. A gente aprende o suficiente para construir, coloca no ar e evolui com o uso. O que não se sustenta fica para trás. O que se sustenta vira produto."
+            highlight={["experimento", "construir", "ar", "produto"]}
           />
         </div>
       </section>
@@ -99,7 +100,17 @@ export default function SobrePage() {
         </div>
 
         <div className="mx-auto mt-24 max-w-[1320px] px-5 md:mt-32 md:px-10">
-          <Stats />
+          <p data-reveal className="text-sm font-medium uppercase tracking-[0.25em] text-white/50">
+            O jeito do Lab
+          </p>
+          <ol className="mt-8 grid gap-4 sm:grid-cols-5">
+            {["Experimentar", "Aprender", "Construir", "Lançar", "Evoluir"].map((step, i) => (
+              <li key={step} data-reveal className="border-t border-white/15 pt-5">
+                <span className="text-xs tabular-nums text-[var(--accent)]">0{i + 1}</span>
+                <p className="mt-3 text-xl font-medium text-white">{step}</p>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
@@ -163,7 +174,7 @@ export default function SobrePage() {
           <SectionIntro
             label="Experts"
             title="Gente especialista, com IA como ferramenta."
-            text="Cada área tem alguém que vive aquilo todos os dias. A IA entra para acelerar o trabalho — o critério, o cuidado e a responsabilidade continuam com as pessoas."
+            text="Cada área tem alguém que vive aquilo todos os dias. A IA entra para acelerar o trabalho — o critério continua com as pessoas."
             align="split"
           />
           <div className="mt-16 grid grid-cols-2 gap-4 md:gap-5 lg:grid-cols-4">
@@ -192,13 +203,20 @@ export default function SobrePage() {
               );
             })}
           </div>
+          <p data-reveal className="mt-10 text-[15px] text-white/60">
+            Quer construir com a gente?{" "}
+            <Link href="/carreira" className="text-white underline decoration-white/30 underline-offset-4 hover:decoration-white">
+              Veja a página de carreira
+            </Link>
+            .
+          </p>
         </div>
       </section>
 
       <CTASection
         title="Tem uma ideia rondando a cabeça?"
-        text="Conte em poucas linhas o que você quer testar, construir ou acelerar. Respondemos em até 1 dia útil com uma primeira leitura e os próximos passos."
-        bullets={["Primeira conversa sem custo", "Estratégia, produto e marketing juntos", "Entregas curtas e visíveis", "IA onde faz sentido"]}
+        text="Conte em poucas linhas o que você quer construir. Respondemos em até 1 dia útil com uma primeira leitura e os próximos passos."
+        bullets={["Primeira conversa sem custo", "Produto e tecnologia no centro", "Entregas curtas e visíveis", "IA onde faz sentido"]}
       />
     </Reveal>
   );

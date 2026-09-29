@@ -17,7 +17,8 @@ import { site } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Contato",
   description:
-    "Fale com a Startups Lab sobre a sua ideia, produto ou meta de crescimento. Respondemos em até 1 dia útil.",
+    "Fale com a Startups Lab sobre o aplicativo, o software ou o MVP que você quer construir. Respondemos em até 1 dia útil.",
+  alternates: { canonical: "/contato" },
 };
 
 const channels = [

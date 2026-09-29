@@ -36,11 +36,11 @@ export function BigMarquee() {
   const word = (outline: boolean) => (
     <>
       <span className={outline ? "text-transparent [-webkit-text-stroke:1.5px_rgba(255,255,255,0.8)]" : "text-white"}>
-        TESTE
+        IDEIA
       </span>
       <span className="self-center text-[0.45em] text-[var(--accent)]">✦</span>
       <span className={outline ? "text-white" : "text-transparent [-webkit-text-stroke:1.5px_rgba(255,255,255,0.8)]"}>
-        ESCALE
+        PRODUTO
       </span>
       <span className="self-center text-[0.45em] text-[var(--accent)]">✦</span>
     </>

@@ -98,15 +98,15 @@ export function About() {
             Quem somos
           </span>
           <h2 className="mt-4 text-[clamp(2.4rem,4.6vw,4rem)] font-medium leading-[1.02] text-white">
-            Um laboratório para ideias que querem virar empresa
+            Um laboratório para ideias que querem virar produto
           </h2>
           <p className="mt-8 text-[17px] leading-relaxed text-white/85">
-            Todo negócio começa como uma hipótese. O nosso trabalho é testar essa hipótese rápido, com
-            pouco desperdício, e transformar o que funciona em produto, processo e receita.
+            Experimentar, aprender e construir. A Startups Lab existe para quem tem uma ideia de startup
+            e precisa de um time de tecnologia para colocá-la no ar.
           </p>
           <p className="mt-5 text-[17px] leading-relaxed text-white/85">
-            A Startups Lab junta estratégia, engenharia, design e marketing num mesmo time. Usamos IA
-            onde ela faz diferença de verdade — e método em tudo.
+            Engenharia, produto e design no mesmo lugar. IA e marketing entram quando o produto pede —
+            o centro do trabalho é construir.
           </p>
           <div className="mt-10">
             <MagneticButton

@@ -8,9 +8,9 @@ import {
   ArrowDown,
   Brain,
   ChartLineUp,
-  ChatCircleDots,
   Code,
-  FlowArrow,
+  DeviceMobile,
+  Plugs,
   RocketLaunch,
   type Icon,
 } from "@phosphor-icons/react";
@@ -19,40 +19,40 @@ gsap.registerPlugin(ScrollTrigger);
 
 const services: { icon: Icon; title: string; text: string; href: string }[] = [
   {
-    icon: ChartLineUp,
-    title: "Marketing",
-    text: "Posicionamento, mídia paga e funis que transformam atenção em vendas — com metas claras e ajustes toda semana.",
-    href: "#assessoria",
+    icon: RocketLaunch,
+    title: "MVP",
+    text: "O primeiro recorte da ideia: o que precisa existir para alguém usar de verdade, e o que pode esperar.",
+    href: "/mvp-para-startups",
   },
   {
-    icon: Brain,
-    title: "IA",
-    text: "Assistentes treinados com o conhecimento da sua empresa para atender, responder e decidir mais rápido.",
-    href: "#ia",
-  },
-  {
-    icon: FlowArrow,
-    title: "Automações",
-    text: "Tarefas repetitivas no piloto automático: conectamos seus sistemas e liberamos o time para o que importa.",
-    href: "#ia",
+    icon: DeviceMobile,
+    title: "Aplicativos",
+    text: "iOS e Android, da tela ao app publicado. Mobile é uma frente forte — o produto pode ir além dela.",
+    href: "/desenvolvimento-de-aplicativos",
   },
   {
     icon: Code,
-    title: "Software e App",
-    text: "Produtos digitais do primeiro rabisco ao lançamento, com design cuidadoso e código pronto para crescer.",
-    href: "#apps",
+    title: "Software e sistemas",
+    text: "SaaS, portais e sistemas internos. O fluxo do negócio vira produto, não uma coleção de planilhas.",
+    href: "/desenvolvimento-de-software",
   },
   {
-    icon: RocketLaunch,
-    title: "Startups",
-    text: "Da hipótese ao primeiro cliente pagante — e daí para a escala. Entramos como parte do seu time.",
-    href: "#startups",
+    icon: Plugs,
+    title: "Backend e APIs",
+    text: "A parte que o usuário não vê: dados, integrações, painel e infra para o produto aguentar o uso.",
+    href: "/desenvolvimento-de-software",
   },
   {
-    icon: ChatCircleDots,
-    title: "Outro desafio?",
-    text: "Se envolve tecnologia e crescimento, provavelmente já resolvemos algo parecido. Conte pra gente.",
-    href: "/contato",
+    icon: Brain,
+    title: "IA no produto",
+    text: "Assistentes, automações e modelos entram quando resolvem uma parte real do produto — não como enfeite.",
+    href: "/ia-e-automacao",
+  },
+  {
+    icon: ChartLineUp,
+    title: "Growth",
+    text: "Aquisição e mídia, como complemento. Faz sentido depois que existe um produto para crescer.",
+    href: "/growth",
   },
 ];
 
@@ -89,7 +89,7 @@ export function Services() {
             data-cursor="highlight"
             className="text-sm font-medium uppercase tracking-[0.3em] text-white/70"
           >
-            O que fazemos
+            O que construímos
           </span>
         </div>
 

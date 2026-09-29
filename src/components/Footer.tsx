@@ -67,11 +67,11 @@ export function Footer() {
           className="mt-28 grid gap-12 pb-16 sm:grid-cols-2 md:mt-36 lg:grid-cols-[1.3fr_1.1fr_0.8fr_1.2fr] lg:gap-10"
         >
           <div data-footer-col>
-            <p className="text-lg font-semibold text-white">Bora tirar do papel?</p>
+            <p className="text-lg font-semibold text-white">Tem uma ideia?</p>
             <p className="mt-5 max-w-xs text-[15px] leading-relaxed text-white/70">
-              Uma ideia nova, um produto parado ou uma meta de crescimento: a gente quer ouvir. A
-              primeira conversa é sem compromisso — e costuma render bons insights.{" "}
-              <strong className="font-semibold text-white">O próximo experimento pode ser o seu.</strong>
+              Conta o que você quer construir. A primeira conversa serve para entender o recorte, o
+              prazo e se faz sentido seguir juntos.{" "}
+              <strong className="font-semibold text-white">Da ideia ao produto no ar.</strong>
             </p>
           </div>
 

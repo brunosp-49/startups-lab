@@ -11,56 +11,56 @@ gsap.registerPlugin(ScrollTrigger);
 
 const cards = [
   {
+    id: "mvp",
+    label: "mvp",
+    title: "O primeiro produto, não o produto inteiro",
+    text: "Definimos o recorte, prototipamos e construímos a versão que alguém consegue usar. O resto fica registrado para a etapa seguinte.",
+    image: "/images/projeto.jpg",
+  },
+  {
     id: "apps",
-    label: "apps",
-    title: "Aplicativos para Android e iOS",
-    text: "Do fluxo desenhado no papel ao app publicado nas lojas. Testamos a experiência com usuários reais, desenvolvemos com tecnologia multiplataforma e acompanhamos as métricas depois do lançamento para evoluir o que importa.",
+    label: "aplicativos",
+    title: "Apps para iOS e Android",
+    text: "Fluxos, publicação nas lojas e a base para evoluir depois do lançamento. Mobile é parte do produto — junto com o que acontece no servidor.",
     image: "/images/apps.jpg",
   },
   {
     id: "softwares",
-    label: "softwares",
-    title: "Sistemas e plataformas sob medida",
-    text: "Quando a planilha já não dá conta, entra o software certo. Criamos painéis, portais, SaaS e sistemas internos que se encaixam no seu processo — e não o contrário.",
+    label: "sistemas",
+    title: "Sistemas, SaaS e painéis",
+    text: "Plataformas web, áreas logadas e ferramentas internas. O processo da operação vira software que o time realmente usa.",
     image: "/images/software.jpg",
   },
   {
-    id: "assessoria",
-    label: "marketing",
-    title: "Marketing de performance com IA",
-    text: "Marca, conteúdo, redes sociais e mídia paga guiados por dados. Usamos IA para testar criativos e automatizar relatórios, e assim descobrir mais rápido o que realmente vende.",
-    image: "/images/assessoria.jpg",
-  },
-  {
-    id: "projeto",
-    label: "validação",
-    title: "Validação de ideias e MVPs",
-    text: "Antes de investir pesado, provamos a ideia. Entrevistas, protótipos clicáveis e testes de demanda mostram se vale seguir — e o que construir primeiro.",
-    image: "/images/projeto.jpg",
+    id: "backend",
+    label: "backend",
+    title: "APIs, dados e infraestrutura",
+    text: "Autenticação, integrações, banco e o ambiente onde o produto roda. Sem essa camada, o app é só uma tela.",
+    image: "/images/startups.jpg",
   },
   {
     id: "ia",
-    label: "inteligência artificial",
-    title: "Agentes de IA e automações",
-    text: "Assistentes que atendem clientes, qualificam leads e tiram dúvidas do time, conectados aos seus sistemas. Menos trabalho manual, mais tempo para decidir.",
+    label: "ia no produto",
+    title: "IA e automação onde elas trabalham",
+    text: "Um recurso dentro do produto: classificar, responder, conectar sistemas. A gente propõe quando encurta o caminho — e diz quando não encaixa.",
     image: "/images/ia.jpg",
   },
   {
-    id: "startups",
-    label: "startups",
-    title: "Aceleração de startups",
-    text: "Para quem já tem produto e quer tração: organizamos a operação, montamos o funil de aquisição e deixamos os números prontos para a conversa com investidores.",
-    image: "/images/startups.jpg",
+    id: "growth",
+    label: "complemento",
+    title: "Growth, depois que o produto existe",
+    text: "Aquisição e mídia para quem já tem o que oferecer. É um serviço à parte, não o motivo de existir da Startups Lab.",
+    image: "/images/assessoria.jpg",
   },
 ];
 
 const cardServices: Record<string, ServiceKey[]> = {
+  mvp: ["startup"],
   apps: ["app"],
   softwares: ["software"],
-  assessoria: ["marketing"],
-  projeto: ["startup"],
+  backend: ["software"],
   ia: ["ia"],
-  startups: ["startup"],
+  growth: ["marketing"],
 };
 
 const STICKY_TOP = 96;
@@ -125,11 +125,11 @@ export function StackedCards() {
               Soluções
             </span>
             <h2 className="mt-4 max-w-2xl text-[clamp(2.3rem,4.4vw,3.8rem)] font-medium leading-[1.02] text-[#101118]">
-              Um time. Todas as frentes do seu crescimento.
+              Da ideia ao produto que alguém usa.
             </h2>
           </div>
           <p className="max-w-sm text-[15px] leading-relaxed text-[#101118]/60">
-            Escolha por onde começar. As frentes conversam entre si — o que aprendemos em uma melhora a outra.
+            O centro é construir. IA e growth aparecem no fim porque são complemento — não o começo da conversa.
           </p>
         </div>
 

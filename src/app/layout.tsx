@@ -8,6 +8,8 @@ import { LeadForm } from "@/components/LeadForm";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingActions } from "@/components/FloatingActions";
+import { JsonLd } from "@/components/ui/JsonLd";
+import { organizationJsonLd, siteUrl } from "@/lib/seo";
 const interTight = Inter_Tight({
   variable: "--font-inter-tight",
   subsets: ["latin"],
@@ -16,12 +18,20 @@ const interTight = Inter_Tight({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
-    default: "Startups Lab — Laboratório de negócios digitais",
-    template: "%s — Startups Lab",
+    default: "Desenvolvimento de Apps e Software para Startups | Startups Lab",
+    template: "%s | Startups Lab",
   },
   description:
-    "Validamos ideias, construímos apps e softwares e colocamos empresas para crescer com marketing, IA e automação.",
+    "Transformamos ideias em aplicativos, MVPs e produtos digitais. Desenvolvimento de apps Android e iOS, software, backend e IA para startups.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    siteName: "Startups Lab",
+    url: siteUrl,
+  },
 };
 
 export default function RootLayout({
@@ -32,6 +42,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={interTight.variable}>
       <body>
+        <JsonLd data={organizationJsonLd} />
         <Preloader />
         <CustomCursor />
         <SmoothScroll>

@@ -17,28 +17,27 @@ export type NavLink = { href: string; label: string; text: string; image: string
 export type NavItem = NavLink & { children?: NavLink[] };
 
 export const nav: NavItem[] = [
-  { href: "/", label: "Home", text: "Conheça o Lab e as frentes em que atuamos.", image: "/images/projeto.jpg" },
+  { href: "/", label: "Início", text: "Da ideia ao produto no ar.", image: "/images/projeto.jpg" },
   {
-    href: "/sobre",
-    label: "Institucional",
-    text: "Quem somos, o que já entregamos e como fazer parte.",
-    image: "/images/about-1.jpg",
-    children: [
-      { href: "/sobre", label: "Sobre", text: "Nossa história, propósito e time", image: "/images/about-1.jpg" },
-      { href: "/cases", label: "Cases", text: "Projetos que saíram do papel", image: "/images/projeto.jpg" },
-      { href: "/carreira", label: "Carreira", text: "Venha construir com a gente", image: "/images/about-2.jpg" },
-    ],
+    href: "/como-funciona",
+    label: "Como funciona",
+    text: "Descobrir, validar, construir, lançar e evoluir.",
+    image: "/images/about-2.jpg",
   },
   {
-    href: "/inovacao",
-    label: "O que fazemos",
-    text: "Validar, construir e crescer — com um só time.",
-    image: "/images/ia.jpg",
+    href: "/desenvolvimento-de-aplicativos",
+    label: "Soluções",
+    text: "Aplicativos, software, MVP e o que o produto precisa para ir ao ar.",
+    image: "/images/apps.jpg",
     children: [
-      { href: "/startups", label: "Startups", text: "Da hipótese à escala", image: "/images/startups.jpg" },
-      { href: "/inovacao", label: "Inovação", text: "Marketing, IA e automação", image: "/images/ia.jpg" },
-      { href: "/desenvolvimento", label: "Apps & Softwares", text: "Produtos digitais sob medida", image: "/images/apps.jpg" },
+      { href: "/desenvolvimento-de-aplicativos", label: "Aplicativos", text: "Android, iOS e publicação nas lojas", image: "/images/apps.jpg" },
+      { href: "/desenvolvimento-de-software", label: "Software", text: "Sistemas, SaaS, backend e APIs", image: "/images/software.jpg" },
+      { href: "/mvp-para-startups", label: "MVP", text: "A primeira versão da ideia", image: "/images/startups.jpg" },
+      { href: "/ia-e-automacao", label: "IA & Automação", text: "Quando faz sentido dentro do produto", image: "/images/ia.jpg" },
+      { href: "/growth", label: "Growth", text: "Complemento, depois que o produto existe", image: "/images/assessoria.jpg" },
     ],
   },
-  { href: "/contato", label: "Contate-nos", text: "Conte sua ideia. Respondemos em até 1 dia útil.", image: "/images/assessoria.jpg" },
+  { href: "/projetos", label: "Projetos", text: "O que colocamos no ar.", image: "/images/software.jpg" },
+  { href: "/sobre", label: "Sobre nós", text: "Um laboratório que constrói produtos.", image: "/images/about-1.jpg" },
+  { href: "/contato", label: "Contato", text: "Conte a ideia. Respondemos em até 1 dia útil.", image: "/images/assessoria.jpg" },
 ];

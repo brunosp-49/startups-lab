@@ -10,19 +10,19 @@ gsap.registerPlugin(ScrollTrigger);
 
 const pillars = [
   {
-    title: "Crescimento com marketing e IA",
-    text: "Estratégia, mídia e automação trabalhando juntas. Montamos a sua máquina de aquisição e ajustamos toda semana com base em dados — não em achismo.",
-    href: "/inovacao",
+    title: "A ideia vira recorte",
+    text: "Descobrimos o problema e o menor produto que vale construir. Você não precisa chegar com especificação pronta.",
+    href: "/mvp-para-startups",
   },
   {
-    title: "Seu app ou software, do zero",
-    text: "Escopo enxuto, primeira versão rápida e evolução contínua. Você acompanha cada entrega e sabe exatamente em que pé o projeto está.",
-    href: "/desenvolvimento",
+    title: "O recorte vira produto",
+    text: "App, sistema, API e painel no mesmo time. Você acompanha cada entrega e vê o produto funcionando.",
+    href: "/desenvolvimento-de-aplicativos",
   },
   {
-    title: "Startups do rascunho à escala",
-    text: "Validação, MVP, lançamento e crescimento com um time que já passou por cada uma dessas fases — e sabe onde costumam estar as armadilhas.",
-    href: "/startups",
+    title: "O produto continua",
+    text: "Lançar é uma etapa. Depois ajustamos com o uso real e abrimos a próxima versão.",
+    href: "/como-funciona",
   },
 ];
 

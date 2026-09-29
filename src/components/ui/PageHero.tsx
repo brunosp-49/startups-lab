@@ -3,10 +3,13 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { CaretRight } from "@phosphor-icons/react";
 import { onReady } from "@/lib/ready";
+import { breadcrumbJsonLd } from "@/lib/seo";
+import { JsonLd } from "./JsonLd";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -21,6 +24,14 @@ type Props = {
 
 export function PageHero({ eyebrow, title, text, crumbs, image, children }: Props) {
   const root = useRef<HTMLElement>(null);
+  const pathname = usePathname();
+  const trail = [
+    { name: "Início", path: "/" },
+    ...(crumbs ?? []).map((crumb, index, list) => ({
+      name: crumb.label,
+      path: crumb.href ?? (index === list.length - 1 ? pathname : "/"),
+    })),
+  ];
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -103,10 +114,11 @@ export function PageHero({ eyebrow, title, text, crumbs, image, children }: Prop
       </svg>
 
       <div className="relative mx-auto max-w-[1320px] px-5 md:px-10">
+        {crumbs && <JsonLd data={breadcrumbJsonLd(trail)} />}
         {crumbs && (
           <nav data-ph-fade aria-label="Você está em" className="mb-10 flex items-center gap-2 text-[13px] text-white/45">
             <Link href="/" className="transition hover:text-white">
-              Home
+              Início
             </Link>
             {crumbs.map((c) => (
               <span key={c.label} className="flex items-center gap-2">

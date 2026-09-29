@@ -8,7 +8,7 @@ import { onReady } from "@/lib/ready";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const lines = ["Ideias testadas.", "Produtos no ar.", "Negócios crescendo"];
+const lines = ["Desenvolvimento de", "aplicativos e produtos", "digitais para startups"];
 
 const videos = ["/video/hero-typing.mp4", "/video/hero-team.mp4"];
 const CROSSFADE = 1.2;
@@ -167,7 +167,7 @@ export function Hero() {
         data-hero-content
         className="relative z-10 mx-auto flex h-full max-w-[1320px] flex-col justify-end px-5 pb-20 md:px-10 md:pb-24"
       >
-        <h1 className="text-[clamp(2.7rem,7.4vw,7.25rem)] font-medium leading-[0.98] tracking-[-0.045em] text-white">
+        <h1 className="max-w-[14ch] text-[clamp(2.15rem,5.2vw,5.1rem)] font-medium leading-[0.98] tracking-[-0.045em] text-white sm:max-w-none">
           {lines.map((line, i) => (
             <span key={line} data-hero-line className="split-line">
               <span>
@@ -181,10 +181,13 @@ export function Hero() {
         </h1>
 
         <div className="mt-10 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
-          <p data-hero-fade className="max-w-md text-base leading-relaxed text-white/70 md:text-lg">
-            Somos um laboratório de negócios digitais: validamos ideias, construímos apps e softwares
-            e colocamos empresas para crescer com marketing e IA.
-          </p>
+          <div data-hero-fade className="max-w-md">
+            <p className="text-lg leading-snug text-white md:text-xl">Tem uma ideia. A gente coloca ela no ar.</p>
+            <p className="mt-3 text-base leading-relaxed text-white/70 md:text-lg">
+              Transformamos ideias em MVPs, aplicativos e softwares prontos para chegar ao mercado e
+              evoluir.
+            </p>
+          </div>
 
           <a
             data-hero-fade
@@ -198,7 +201,7 @@ export function Hero() {
               </defs>
               <text className="fill-white/70 text-[10px] font-medium uppercase">
                 <textPath href="#hero-circle" textLength="286" lengthAdjust="spacing">
-                  teste • construa • escale • teste • construa • escale •
+                  ideia • produto • evolução • ideia • produto • evolução •
                 </textPath>
               </text>
             </svg>

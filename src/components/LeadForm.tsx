@@ -21,11 +21,11 @@ import { LEAD_FORM_EVENT, type ServiceKey } from "@/lib/lead-form";
 import { Chips, Field, Honeypot, isEmail } from "@/components/ui/FormFields";
 
 const serviceOptions: { key: ServiceKey; icon: Icon; label: string; hint: string }[] = [
-  { key: "app", icon: DeviceMobile, label: "Aplicativo", hint: "Android e iOS" },
-  { key: "software", icon: Code, label: "Software sob medida", hint: "Plataformas e sistemas" },
-  { key: "ia", icon: Brain, label: "IA e automações", hint: "Agentes e integrações" },
-  { key: "marketing", icon: ChartLineUp, label: "Marketing e growth", hint: "Performance e branding" },
-  { key: "startup", icon: RocketLaunch, label: "Startup / MVP", hint: "Da hipótese à escala" },
+  { key: "startup", icon: RocketLaunch, label: "MVP", hint: "Da ideia à primeira versão" },
+  { key: "app", icon: DeviceMobile, label: "Aplicativo", hint: "iOS e Android" },
+  { key: "software", icon: Code, label: "Software e backend", hint: "Sistemas, APIs e painéis" },
+  { key: "ia", icon: Brain, label: "IA e automação", hint: "Dentro do produto" },
+  { key: "marketing", icon: ChartLineUp, label: "Growth", hint: "Complemento, se fizer sentido" },
 ];
 
 const stages = [
