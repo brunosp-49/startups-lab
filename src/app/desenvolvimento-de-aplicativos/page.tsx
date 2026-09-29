@@ -41,7 +41,7 @@ const kinds = [
 const faqs = [
   {
     q: "Quanto custa desenvolver um aplicativo?",
-    a: "Não existe um preço único. O valor muda com o recorte: um MVP enxuto custa menos do que um app com pagamentos, painel e várias integrações. Na primeira conversa devolvemos uma estimativa da primeira versão, sem compromisso.",
+    a: "Não existe um preço único. O valor muda com o recorte: um MVP enxuto custa menos do que um app com pagamentos, painel e várias integrações. Na primeira conversa devolvemos um orçamento da primeira versão, sem compromisso.",
   },
   {
     q: "Quanto tempo demora para criar um app?",
@@ -89,7 +89,7 @@ export default function AplicativosPage() {
         ]}
         image={{ src: "/images/apps.jpg", alt: "Desenvolvimento de aplicativos para Android e iOS" }}
       >
-        <LeadButton services={["app"]}>Pedir estimativa</LeadButton>
+        <LeadButton services={["app"]}>Pedir orçamento</LeadButton>
       </PageHero>
 
       <section className="section-gradient relative overflow-hidden py-24 md:py-32">
@@ -121,9 +121,9 @@ export default function AplicativosPage() {
 
       <CTASection
         title="Qual aplicativo você quer colocar na loja?"
-        text="Conta a ideia em poucas linhas. Devolvemos o recorte da primeira versão, com prazo e estimativa."
+        text="Conta a ideia em poucas linhas. Devolvemos o recorte da primeira versão, com prazo e orçamento."
         bullets={["Android e iOS", "MVP antes do produto inteiro", "Publicação nas lojas", "Backend no mesmo time"]}
-        button="Pedir estimativa"
+        button="Pedir orçamento"
         services={["app"]}
       />
     </Reveal>

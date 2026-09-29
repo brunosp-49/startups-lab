@@ -8,8 +8,8 @@ export const site = {
     street: "Av. Paulista, 1000 – Bela Vista",
   },
   social: {
-    instagram: "https://instagram.com/",
-    linkedin: "https://linkedin.com/",
+    linkedin: "https://www.linkedin.com/company/startups-lab-br/",
+    // instagram: "", // sem conta por enquanto
   },
 };
 

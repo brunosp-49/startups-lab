@@ -1,3 +1,5 @@
+import { site } from "@/lib/site";
+
 export const siteUrl = "https://www.startupslab.com.br";
 
 export function breadcrumbJsonLd(items: { name: string; path: string }[]) {
@@ -48,4 +50,5 @@ export const organizationJsonLd = {
   logo: `${siteUrl}/logo-startups-lab.png`,
   description:
     "Empresa de tecnologia que desenvolve aplicativos, MVPs e produtos digitais para startups.",
+  sameAs: [site.social.linkedin],
 };

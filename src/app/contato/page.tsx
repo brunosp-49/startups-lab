@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import {
   ArrowUpRight,
   EnvelopeSimple,
-  InstagramLogo,
+  // InstagramLogo,
   LinkedinLogo,
   MapPin,
   Phone,
@@ -86,6 +86,7 @@ export default function ContatoPage() {
                 >
                   <LinkedinLogo weight="fill" className="h-5 w-5" />
                 </a>
+                {/* Instagram desativado até existir conta
                 <a
                   href={site.social.instagram}
                   target="_blank"
@@ -95,6 +96,7 @@ export default function ContatoPage() {
                 >
                   <InstagramLogo weight="bold" className="h-5 w-5" />
                 </a>
+                */}
               </div>
             </div>
           </div>

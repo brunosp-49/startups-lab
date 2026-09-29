@@ -8,7 +8,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   ArrowRight,
   EnvelopeSimple,
-  InstagramLogo,
+  // InstagramLogo,
   LinkedinLogo,
   Phone,
 } from "@phosphor-icons/react";
@@ -142,6 +142,7 @@ export function Footer() {
               >
                 <LinkedinLogo weight="fill" className="h-5 w-5" />
               </a>
+              {/* Instagram desativado até existir conta
               <a
                 href={site.social.instagram}
                 target="_blank"
@@ -151,6 +152,7 @@ export function Footer() {
               >
                 <InstagramLogo weight="bold" className="h-5 w-5" />
               </a>
+              */}
             </div>
           </div>
         </div>

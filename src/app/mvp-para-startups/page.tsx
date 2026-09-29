@@ -50,7 +50,7 @@ const faqs = [
   },
   {
     q: "Quanto custa criar um MVP?",
-    a: "Depende do recorte. Um fluxo simples custa menos do que um produto com pagamento, app nas duas lojas e várias integrações. A estimativa sai depois da primeira conversa.",
+    a: "Depende do recorte. Um fluxo simples custa menos do que um produto com pagamento, app nas duas lojas e várias integrações. O orçamento sai depois da primeira conversa.",
   },
 ];
 
@@ -124,7 +124,7 @@ export default function MvpPage() {
       <CTASection
         title="Em que ponto está a ideia?"
         text="Pode ser um parágrafo ou um protótipo parado. A gente lê e devolve o que faria sentido construir primeiro."
-        bullets={["Recorte da primeira versão", "O que fica para depois", "Estimativa de prazo e escopo"]}
+        bullets={["Recorte da primeira versão", "O que fica para depois", "Prazo e escopo na primeira conversa"]}
         services={["startup"]}
       />
     </Reveal>

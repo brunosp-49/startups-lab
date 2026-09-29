@@ -9,7 +9,7 @@ import {
   ArrowRight,
   ArrowUpRight,
   CaretDown,
-  InstagramLogo,
+  // InstagramLogo,
   LinkedinLogo,
 } from "@phosphor-icons/react";
 import { BrandLockup } from "./BrandLockup";
@@ -356,6 +356,7 @@ export function Header() {
               >
                 <LinkedinLogo weight="fill" className="h-[18px] w-[18px]" />
               </a>
+              {/* Instagram desativado até existir conta
               <a
                 href={site.social.instagram}
                 target="_blank"
@@ -365,6 +366,7 @@ export function Header() {
               >
                 <InstagramLogo weight="bold" className="h-[18px] w-[18px]" />
               </a>
+              */}
             </div>
           </div>
         </div>

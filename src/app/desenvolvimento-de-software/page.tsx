@@ -72,7 +72,7 @@ export default function SoftwarePage() {
         ]}
         image={{ src: "/images/software.jpg", alt: "Desenvolvimento de software sob medida" }}
       >
-        <LeadButton services={["software"]}>Pedir estimativa</LeadButton>
+        <LeadButton services={["software"]}>Pedir orçamento</LeadButton>
       </PageHero>
 
       <section className="section-gradient relative overflow-hidden py-24 md:py-32">
@@ -114,9 +114,9 @@ export default function SoftwarePage() {
 
       <CTASection
         title="Que sistema você precisa tirar da planilha?"
-        text="Descreva o fluxo. Devolvemos o que entra na primeira versão e uma estimativa."
-        bullets={["Sistema web e SaaS", "Backend e API", "Integrações", "Estimativa sem compromisso"]}
-        button="Pedir estimativa"
+        text="Descreva o fluxo. Devolvemos o que entra na primeira versão e um orçamento."
+        bullets={["Sistema web e SaaS", "Backend e API", "Integrações", "Orçamento sem compromisso"]}
+        button="Pedir orçamento"
         services={["software"]}
       />
     </Reveal>
