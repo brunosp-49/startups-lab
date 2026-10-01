@@ -23,7 +23,7 @@ const isMobile = () => typeof window !== "undefined" && !window.matchMedia("(min
 export function Header() {
   const headerRef = useRef<HTMLElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
-  const tlRef = useRef<gsap.core.Timeline | null>(null);
+  const hiddenRef = useRef(false);
   const [open, setOpen] = useState(false);
   const [solid, setSolid] = useState(false);
   const [active, setActive] = useState(1);
@@ -40,67 +40,98 @@ export function Header() {
     const header = headerRef.current;
     if (!header) return;
     gsap.set(header, { yPercent: -100, opacity: 0 });
-    const off = onReady(() =>
-      gsap.to(header, { yPercent: 0, opacity: 1, duration: 1, ease: "expo.out", delay: 0.3 }),
-    );
+    let intro: gsap.core.Tween | null = null;
+    const off = onReady(() => {
+      intro = gsap.to(header, {
+        yPercent: 0,
+        opacity: 1,
+        duration: 1,
+        ease: "expo.out",
+        delay: 0.3,
+        overwrite: "auto",
+      });
+    });
+
+    const reveal = (hide: boolean) => {
+      if (document.body.dataset.menuOpen || hide === hiddenRef.current) return;
+      hiddenRef.current = hide;
+      intro?.kill();
+      gsap.to(header, {
+        yPercent: hide ? -110 : 0,
+        opacity: 1,
+        duration: 0.5,
+        ease: "power3.out",
+        overwrite: "auto",
+      });
+    };
 
     let last = window.scrollY;
-    const onScroll = () => {
+    let usingLenis = false;
+    const onWindowScroll = () => {
+      if (usingLenis) return;
       const y = window.scrollY;
-      setSolid(y > 60);
-      if (!document.body.dataset.menuOpen) {
-        const hide = y > last && y > 400;
-        gsap.to(header, { yPercent: hide ? -110 : 0, duration: 0.5, ease: "power3.out", overwrite: "auto" });
-      }
+      const delta = y - last;
       last = y;
+      setSolid(y > 60);
+      if (y <= 80) reveal(false);
+      else if (delta > 6 && y > 400) reveal(true);
+      else if (delta < -6) reveal(false);
     };
-    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("scroll", onWindowScroll, { passive: true });
+
+    let detachLenis = () => {};
+    const watch = window.setInterval(() => {
+      const lenis = window.__lenis;
+      if (!lenis) return;
+      window.clearInterval(watch);
+      usingLenis = true;
+      const onLenis = () => {
+        const y = lenis.animatedScroll;
+        setSolid(y > 60);
+        if (y <= 80) reveal(false);
+        else if (lenis.direction === 1 && y > 400) reveal(true);
+        else if (lenis.direction === -1) reveal(false);
+      };
+      lenis.on("scroll", onLenis);
+      detachLenis = () => lenis.off("scroll", onLenis);
+    }, 50);
+
     return () => {
       off();
-      window.removeEventListener("scroll", onScroll);
+      intro?.kill();
+      window.clearInterval(watch);
+      detachLenis();
+      window.removeEventListener("scroll", onWindowScroll);
     };
   }, []);
 
   useEffect(() => {
     const menu = menuRef.current;
-    if (!menu) return;
-    const tl = gsap.timeline({ paused: true });
-    tl.set(menu, { visibility: "visible" })
-      .fromTo(
-        menu,
-        { clipPath: "inset(0% 0% 100% 0%)" },
-        { clipPath: "inset(0% 0% 0% 0%)", duration: 0.8, ease: "expo.inOut" },
-      )
-      .fromTo(
-        menu.querySelectorAll("[data-menu-link] > span"),
-        { yPercent: 110 },
-        { yPercent: 0, duration: 0.8, stagger: 0.06, ease: "expo.out" },
-        "-=0.35",
-      )
-      .fromTo(
-        menu.querySelectorAll("[data-menu-fade]"),
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.6, stagger: 0.06, ease: "power3.out" },
-        "-=0.6",
-      );
-    tlRef.current = tl;
-    return () => {
-      tl.kill();
-    };
-  }, []);
-
-  useEffect(() => {
-    const tl = tlRef.current;
-    if (!tl) return;
     if (open) {
       document.body.dataset.menuOpen = "1";
+      hiddenRef.current = false;
       window.__lenis?.stop();
-      gsap.to(headerRef.current, { yPercent: 0, duration: 0.4 });
-      tl.timeScale(1).play();
+      gsap.to(headerRef.current, { yPercent: 0, opacity: 1, duration: 0.4, overwrite: "auto" });
+      if (!menu) return;
+      const links = menu.querySelectorAll("[data-menu-link] > span");
+      const fades = menu.querySelectorAll("[data-menu-fade]");
+      if (links.length) {
+        gsap.fromTo(
+          links,
+          { yPercent: 110 },
+          { yPercent: 0, duration: 0.8, stagger: 0.06, ease: "expo.out", overwrite: "auto" },
+        );
+      }
+      if (fades.length) {
+        gsap.fromTo(
+          fades,
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.6, stagger: 0.06, ease: "power3.out", overwrite: "auto" },
+        );
+      }
     } else {
       delete document.body.dataset.menuOpen;
       window.__lenis?.start();
-      tl.timeScale(1.6).reverse();
     }
   }, [open]);
 
@@ -181,22 +212,26 @@ export function Header() {
 
       <div
         ref={menuRef}
-        className="invisible fixed inset-0 z-[45] overflow-y-auto overflow-x-hidden bg-[var(--ink-2)]"
-        style={{ clipPath: "inset(0% 0% 100% 0%)" }}
+        data-open={open ? "true" : "false"}
+        inert={!open}
+        aria-hidden={!open}
+        className={`site-menu fixed inset-0 z-[45] overflow-y-auto overflow-x-hidden bg-[var(--ink-2)] ${
+          open ? "" : "pointer-events-none"
+        }`}
       >
         <div
           className="pointer-events-none absolute -right-40 -top-40 h-[640px] w-[640px] rounded-full opacity-40 blur-3xl"
           style={{ background: "radial-gradient(circle, #6b3cf6, transparent 65%)" }}
         />
-        <div className="relative mx-auto flex min-h-full max-w-[1320px] flex-col px-5 pb-10 pt-28 md:px-10 md:pt-36">
-          <div className="grid flex-1 gap-12 md:grid-cols-[1.15fr_1fr] md:gap-16 lg:gap-24">
-            <nav className="flex flex-col justify-center">
+        <div className="relative mx-auto flex h-full min-h-0 max-w-[1320px] flex-col px-5 pb-6 pt-24 md:px-10 md:pt-28">
+          <div className="grid min-h-0 flex-1 grid-rows-[minmax(0,1fr)] gap-8 md:grid-cols-[1.05fr_1fr] md:gap-12 lg:gap-16">
+            <nav className="flex min-h-0 flex-col justify-center overflow-y-auto">
               {nav.map((item, i) => {
                 const on = i === active;
                 const label = (
                   <span className="flex w-full items-center gap-4">
                     <span
-                      className={`text-[clamp(2.4rem,6vw,5rem)] font-medium leading-[1.05] tracking-[-0.04em] transition-colors duration-500 ${
+                      className={`text-[clamp(1.65rem,2.8vw,2.45rem)] font-medium leading-[1.1] tracking-[-0.03em] transition-colors duration-500 ${
                         on ? "text-white" : "text-white/30 hover:text-white/60"
                       }`}
                     >
@@ -219,7 +254,7 @@ export function Header() {
                   </span>
                 );
                 return (
-                  <div key={item.label} className="border-b border-white/[0.07] py-2 md:py-3">
+                  <div key={item.label} className="border-b border-white/[0.07] py-1 md:py-1.5">
                     {item.children ? (
                       <button
                         type="button"
@@ -282,8 +317,8 @@ export function Header() {
               })}
             </nav>
 
-            <div data-menu-fade className="hidden flex-col justify-center md:flex">
-              <div className="relative aspect-[16/10] overflow-hidden rounded-[24px] bg-white/5">
+            <div data-menu-fade className="hidden h-full min-h-0 flex-col overflow-hidden md:flex">
+              <div className="relative min-h-[88px] w-full flex-1 overflow-hidden rounded-[24px] bg-white/5">
                 {images.map((src) => (
                   <Image
                     key={src}
@@ -302,7 +337,7 @@ export function Header() {
                 </p>
               </div>
 
-              <div key={current.label} className="mt-6 min-h-[204px]" onMouseLeave={() => setPreview(null)}>
+              <div key={current.label} className="mt-4 shrink-0" onMouseLeave={() => setPreview(null)}>
                 {(current.children ?? [current]).map((c) => (
                   <Link
                     key={c.href + c.label}
@@ -311,7 +346,7 @@ export function Header() {
                     onMouseEnter={() => setPreview(c.image)}
                     onFocus={() => setPreview(c.image)}
                     data-sub-item
-                    className="group flex items-center justify-between border-b border-white/[0.07] py-4"
+                    className="group flex items-center justify-between border-b border-white/[0.07] py-2.5"
                   >
                     <span className="flex items-baseline gap-4">
                       <span
@@ -335,7 +370,7 @@ export function Header() {
 
           <div
             data-menu-fade
-            className="mt-12 flex flex-col gap-5 border-t border-white/[0.07] pt-6 text-sm text-white/55 md:flex-row md:items-center md:justify-between"
+            className="mt-4 flex shrink-0 flex-col gap-5 border-t border-white/[0.07] pt-4 text-sm text-white/55 md:flex-row md:items-center md:justify-between"
           >
             <div className="flex flex-wrap gap-x-8 gap-y-2">
               <a href={`mailto:${site.email}`} className="transition-colors hover:text-white">

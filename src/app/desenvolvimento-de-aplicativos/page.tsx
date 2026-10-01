@@ -20,9 +20,9 @@ import { JsonLd } from "@/components/ui/JsonLd";
 import { serviceJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Desenvolvimento de aplicativos",
+  title: "Desenvolvimento de Aplicativos Android e iOS",
   description:
-    "Criamos aplicativos para Android e iOS, do MVP à publicação na App Store e no Google Play. Backend, APIs e evolução depois do lançamento.",
+    "Empresa de desenvolvimento de aplicativos para Android e iOS. Do MVP de aplicativo à publicação na App Store e no Google Play, com backend e evolução.",
   alternates: { canonical: "/desenvolvimento-de-aplicativos" },
 };
 
@@ -81,10 +81,10 @@ export default function AplicativosPage() {
       />
       <PageHero
         eyebrow="Soluções · Aplicativos"
-        title={["Desenvolvimento", "de aplicativos."]}
-        text="Criamos aplicativos para Android e iOS do zero, da definição do MVP até a publicação nas lojas. O backend entra junto quando o app precisa guardar dados, autenticar alguém ou falar com outro sistema."
+        title={["Desenvolvimento", "de aplicativos", "para Android", "e iOS."]}
+        text="Criamos aplicativos para Android e iOS do zero, da definição do MVP até a publicação nas lojas. Serve para uma startup que quer o primeiro app e para uma empresa que precisa tirar um fluxo do papel. O backend entra junto quando o app precisa guardar dados ou falar com outro sistema."
         crumbs={[
-          { label: "Soluções", href: "/desenvolvimento-de-aplicativos" },
+          { label: "Soluções", href: "/desenvolvimento-de-produtos-digitais" },
           { label: "Aplicativos" },
         ]}
         image={{ src: "/images/apps.jpg", alt: "Desenvolvimento de aplicativos para Android e iOS" }}

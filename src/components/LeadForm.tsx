@@ -17,7 +17,9 @@ import {
   type Icon,
 } from "@phosphor-icons/react";
 import { site } from "@/lib/site";
+import { track } from "@/lib/analytics";
 import { LEAD_FORM_EVENT, type ServiceKey } from "@/lib/lead-form";
+import { WhatsAppLink } from "@/components/WhatsAppLink";
 import { Chips, Field, Honeypot, isEmail } from "@/components/ui/FormFields";
 
 const serviceOptions: { key: ServiceKey; icon: Icon; label: string; hint: string }[] = [
@@ -70,7 +72,9 @@ export function LeadForm() {
   const overlayRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
+  const budgetRef = useRef<HTMLDivElement>(null);
   const closing = useRef(false);
+  const [budgetNudge, setBudgetNudge] = useState(false);
 
   const set = <K extends keyof typeof initial>(key: K, value: (typeof initial)[K]) =>
     setData((d) => ({ ...d, [key]: value }));
@@ -124,24 +128,31 @@ export function LeadForm() {
   }, [mounted, close]);
 
   useEffect(() => {
-    if (!mounted || !bodyRef.current) return;
-    bodyRef.current.scrollTop = 0;
+    const body = bodyRef.current;
+    if (!mounted || !body) return;
+    body.scrollTop = 0;
+    const items = body.querySelectorAll("[data-lf-item]");
+    const check = body.querySelector("[data-lf-check]");
+    if (!items.length && !check) return;
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        "[data-lf-item]",
-        { y: 28, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8, ease: "expo.out", stagger: 0.05 },
-      );
-      gsap.fromTo(
-        "[data-lf-check]",
-        { strokeDashoffset: 60 },
-        { strokeDashoffset: 0, duration: 0.9, delay: 0.25, ease: "power3.out" },
-      );
-    }, bodyRef);
+      if (items.length) {
+        gsap.fromTo(items, { y: 28, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: "expo.out", stagger: 0.05 });
+      }
+      if (check) {
+        gsap.fromTo(check, { strokeDashoffset: 60 }, { strokeDashoffset: 0, duration: 0.9, delay: 0.25, ease: "power3.out" });
+      }
+    }, body);
     return () => ctx.revert();
   }, [mounted, step, status]);
 
   const valid = [
+    data.services.length > 0,
+    data.stage !== "" && data.budget !== "",
+    true,
+    data.name.trim().length >= 2 && isEmail(data.email),
+  ][step];
+
+  const canContinue = [
     data.services.length > 0,
     data.stage !== "",
     true,
@@ -163,6 +174,12 @@ export function LeadForm() {
         body: JSON.stringify(data),
       });
       if (!res.ok) throw new Error();
+      track("generate_lead", {
+        form_name: "orcamento",
+        services: data.services.join(","),
+        stage: data.stage,
+        budget: data.budget,
+      });
       setStatus("done");
     } catch {
       setStatus("error");
@@ -171,7 +188,19 @@ export function LeadForm() {
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    if (!valid || status === "sending") return;
+    if (status === "sending") return;
+      if (step === 1 && data.stage && !data.budget) {
+      setBudgetNudge(true);
+      const scroller = bodyRef.current;
+      const target = budgetRef.current;
+      if (scroller && target) {
+        const top = target.offsetTop - scroller.offsetTop - 12;
+        scroller.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+      }
+      return;
+    }
+    if (!valid) return;
+    setBudgetNudge(false);
     if (step < steps.length - 1) setStep((s) => s + 1);
     else submit();
   };
@@ -189,18 +218,18 @@ export function LeadForm() {
       <div
         ref={overlayRef}
         onClick={close}
-        className="absolute inset-0 bg-[rgba(6,7,12,0.65)] backdrop-blur-md"
+        className="absolute inset-0 bg-[rgba(6,7,12,0.86)] backdrop-blur-xl"
       />
 
       <div
         ref={panelRef}
         tabIndex={-1}
-        className="absolute inset-y-0 right-0 flex w-full max-w-[620px] flex-col overflow-hidden bg-[var(--ink-2)] outline-none md:inset-y-3 md:right-3 md:rounded-[28px] md:border md:border-white/10 md:shadow-[0_40px_120px_rgba(0,0,0,0.55)]"
+        className="absolute inset-y-0 right-0 flex max-h-[100dvh] w-full max-w-[620px] flex-col overflow-hidden bg-[var(--ink-2)] outline-none md:inset-y-3 md:right-3 md:max-h-[calc(100dvh-1.5rem)] md:rounded-[28px] md:border md:border-white/10 md:shadow-[0_40px_120px_rgba(0,0,0,0.55)]"
       >
         <div className="pointer-events-none absolute -right-32 -top-40 h-[420px] w-[420px] rounded-full bg-[#2f5bf0] opacity-25 blur-[120px]" />
         <div className="pointer-events-none absolute -bottom-48 -left-24 h-[360px] w-[360px] rounded-full bg-[var(--accent)] opacity-[0.08] blur-[120px]" />
 
-        <header className="relative flex items-center justify-between px-6 pb-5 pt-6 md:px-10 md:pt-8">
+        <header className="relative flex shrink-0 items-center justify-between px-6 pb-4 pt-5 md:px-10 md:pt-6">
           <div className="flex items-center gap-3 text-xs font-medium uppercase tracking-[0.28em] text-white/50">
             <span className="text-[var(--accent)]">
               {status === "done" ? "Pronto" : `0${step + 1}`}
@@ -218,7 +247,7 @@ export function LeadForm() {
           </button>
         </header>
 
-        <div className="relative mx-6 h-[3px] overflow-hidden rounded-full bg-white/10 md:mx-10">
+        <div className="relative mx-6 h-[3px] shrink-0 overflow-hidden rounded-full bg-white/10 md:mx-10">
           <div
             className="absolute inset-y-0 left-0 rounded-full transition-[width] duration-700 ease-[cubic-bezier(.2,.8,.2,1)]"
             style={{ width: `${progress * 100}%`, background: "var(--brand-gradient)" }}
@@ -226,7 +255,21 @@ export function LeadForm() {
         </div>
 
         <form onSubmit={onSubmit} className="relative flex min-h-0 flex-1 flex-col" noValidate>
-          <div ref={bodyRef} data-lenis-prevent className="flex-1 overflow-y-auto px-6 pb-8 pt-10 md:px-10">
+          {status !== "done" && (
+            <div className="shrink-0 px-6 pt-6 md:px-10">
+              <h2 data-lf-item className="text-[clamp(1.65rem,3vw,2.15rem)] leading-[1.08] text-white">
+                {steps[step].title}
+              </h2>
+              <p data-lf-item className="mt-2 text-[15px] text-white/55">
+                {steps[step].hint}
+              </p>
+            </div>
+          )}
+          <div
+            ref={bodyRef}
+            data-lenis-prevent
+            className="min-h-0 flex-1 overflow-y-auto px-6 pb-6 pt-6 [overflow-anchor:none] md:px-10"
+          >
             {status === "done" ? (
               <div className="flex min-h-full flex-col justify-center pb-10">
                 <div data-lf-item className="flex h-20 w-20 items-center justify-center rounded-full bg-[var(--accent)]">
@@ -250,15 +293,14 @@ export function LeadForm() {
                   <span className="text-white">{data.email.trim()}</span>.
                 </p>
                 <div data-lf-item className="mt-10 flex flex-wrap gap-3">
-                  <a
+                  <WhatsAppLink
+                    place="formulario"
                     href={`${site.whatsapp}?text=${whatsappText}`}
-                    target="_blank"
-                    rel="noreferrer"
                     className="inline-flex h-12 items-center gap-2.5 rounded-full bg-[var(--accent)] px-6 text-sm font-semibold text-[var(--accent-ink)] transition hover:bg-white"
                   >
                     <WhatsappLogo weight="fill" className="h-[18px] w-[18px]" />
                     Adiantar pelo WhatsApp
-                  </a>
+                  </WhatsAppLink>
                   <button
                     type="button"
                     onClick={close}
@@ -270,14 +312,7 @@ export function LeadForm() {
               </div>
             ) : (
               <div key={step}>
-                <h2 data-lf-item className="text-[clamp(2rem,4.4vw,3rem)] leading-[1.04] text-white">
-                  {steps[step].title}
-                </h2>
-                <p data-lf-item className="mt-3 text-[15px] text-white/55">
-                  {steps[step].hint}
-                </p>
-
-                <div className="mt-9">
+                <div>
                   {step === 0 && (
                     <div className="grid grid-cols-2 gap-3">
                       {serviceOptions.map(({ key, icon: IconCmp, label, hint }) => {
@@ -289,7 +324,7 @@ export function LeadForm() {
                             data-lf-item
                             aria-pressed={on}
                             onClick={() => toggleService(key)}
-                            className={`group relative flex flex-col items-start rounded-2xl border p-4 text-left transition-colors duration-300 last:odd:col-span-2 md:p-5 ${
+                            className={`group relative flex flex-col items-start rounded-2xl border p-4 text-left transition-colors duration-300 last:odd:col-span-2 ${
                               on
                                 ? "border-[var(--accent)] bg-[rgba(46,242,216,0.08)]"
                                 : "border-white/10 bg-white/[0.03] hover:border-white/25 hover:bg-white/[0.06]"
@@ -310,7 +345,7 @@ export function LeadForm() {
                                 on ? "text-[var(--accent)]" : "text-white/80"
                               }`}
                             />
-                            <span className="mt-5 text-[15px] font-medium leading-tight text-white md:text-base">
+                            <span className="mt-3 text-[15px] font-medium leading-tight text-white">
                               {label}
                             </span>
                             <span className="mt-1 text-xs text-white/45 md:text-[13px]">{hint}</span>
@@ -363,14 +398,22 @@ export function LeadForm() {
                         })}
                       </div>
 
-                      <p data-lf-item className="mt-10 text-sm font-medium text-white">
-                        Investimento previsto <span className="text-white/40">(opcional)</span>
-                      </p>
-                      <Chips
-                        options={budgets}
-                        value={data.budget}
-                        onChange={(v) => set("budget", v)}
-                      />
+                      <div ref={budgetRef} data-lf-item className="mt-10 scroll-mt-6">
+                        <p className={`text-sm font-medium ${budgetNudge ? "text-[var(--accent)]" : "text-white"}`}>
+                          Investimento previsto
+                        </p>
+                        {budgetNudge && (
+                          <p className="mt-1 text-[13px] text-[var(--accent)]">Escolha uma faixa para continuar.</p>
+                        )}
+                        <Chips
+                          options={budgets}
+                          value={data.budget}
+                          onChange={(v) => {
+                            set("budget", v);
+                            if (v) setBudgetNudge(false);
+                          }}
+                        />
+                      </div>
                     </>
                   )}
 
@@ -473,7 +516,7 @@ export function LeadForm() {
           </div>
 
           {status !== "done" && (
-            <footer className="relative flex items-center justify-between gap-4 border-t border-white/10 px-6 py-5 md:px-10">
+            <footer className="relative flex shrink-0 items-center justify-between gap-4 border-t border-white/10 px-6 py-4 md:px-10">
               <button
                 type="button"
                 onClick={() => setStep((s) => Math.max(0, s - 1))}
@@ -491,7 +534,7 @@ export function LeadForm() {
                 </span>
                 <button
                   type="submit"
-                  disabled={!valid || status === "sending"}
+                  disabled={!canContinue || status === "sending"}
                   className="group inline-flex h-12 items-center gap-2.5 rounded-full bg-[var(--accent)] pl-6 pr-5 text-sm font-semibold text-[var(--accent-ink)] transition-all duration-300 hover:bg-white disabled:cursor-not-allowed disabled:bg-white/10 disabled:text-white/35"
                 >
                   {status === "sending" ? (

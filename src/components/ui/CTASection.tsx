@@ -1,4 +1,5 @@
 import { CheckCircle, WhatsappLogo } from "@phosphor-icons/react/dist/ssr";
+import { WhatsAppLink } from "@/components/WhatsAppLink";
 import { LeadButton } from "./LeadButton";
 import { site } from "@/lib/site";
 import type { ServiceKey } from "@/lib/lead-form";
@@ -54,15 +55,14 @@ export function CTASection({
             </p>
             <div data-reveal className="mt-10 flex flex-wrap items-center gap-3">
               <LeadButton services={services}>{button}</LeadButton>
-              <a
+              <WhatsAppLink
+                place="cta"
                 href={site.whatsapp}
-                target="_blank"
-                rel="noreferrer"
                 className="inline-flex items-center gap-2.5 rounded-full border border-white/30 px-6 py-4 text-sm font-semibold text-white transition-colors hover:border-white hover:bg-white/10"
               >
                 <WhatsappLogo weight="fill" className="h-[18px] w-[18px]" />
                 Chamar no WhatsApp
-              </a>
+              </WhatsAppLink>
             </div>
           </div>
 

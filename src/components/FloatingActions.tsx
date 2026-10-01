@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ArrowUp, NotePencil, WhatsappLogo } from "@phosphor-icons/react";
 import { site } from "@/lib/site";
+import { WhatsAppLink } from "@/components/WhatsAppLink";
 import { openLeadForm } from "@/lib/lead-form";
 import { onReady } from "@/lib/ready";
 
@@ -53,10 +54,9 @@ export function FloatingActions() {
 
           <span className="mx-1 h-5 w-px bg-white/15" />
 
-          <a
+          <WhatsAppLink
+            place="flutuante"
             href={site.whatsapp}
-            target="_blank"
-            rel="noreferrer"
             aria-label="Fale com a gente no WhatsApp — online"
             className="group flex h-9 items-center gap-2.5 rounded-full pl-1 pr-3.5 transition-colors duration-300 hover:bg-white/10"
           >
@@ -65,7 +65,7 @@ export function FloatingActions() {
             </span>
             Online
             <span className="online-dot h-2 w-2 rounded-full bg-[#4ade80]" />
-          </a>
+          </WhatsAppLink>
         </div>
       </div>
 

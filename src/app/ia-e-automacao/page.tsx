@@ -69,7 +69,7 @@ export default function IaPage() {
         title={["IA e", "automação."]}
         text="Agentes, automações e integrações entram no produto que estamos construindo. Não são um serviço solto, e não substituem o aplicativo ou o software."
         crumbs={[
-          { label: "Soluções", href: "/desenvolvimento-de-aplicativos" },
+          { label: "Soluções", href: "/desenvolvimento-de-produtos-digitais" },
           { label: "IA e automação" },
         ]}
         image={{ src: "/images/ia.jpg", alt: "Desenvolvimento de IA e automação em um produto" }}

@@ -113,6 +113,15 @@ h4 {
   animation: online-pulse 1.8s ease-out infinite;
 }
 
+.site-menu {
+  clip-path: inset(0% 0% 100% 0%);
+  transition: clip-path 0.7s cubic-bezier(0.87, 0, 0.13, 1);
+}
+
+.site-menu[data-open="true"] {
+  clip-path: inset(0% 0% 0% 0%);
+}
+
 @media (pointer: fine) {
   .has-custom-cursor a,
   .has-custom-cursor button {

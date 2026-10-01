@@ -49,6 +49,6 @@ export const organizationJsonLd = {
   telephone: "+55-12-98887-0530",
   logo: `${siteUrl}/logo-startups-lab.png`,
   description:
-    "Empresa de tecnologia que desenvolve aplicativos, MVPs e produtos digitais para startups.",
+    "Empresa de tecnologia que desenvolve MVPs, aplicativos, SaaS e software sob medida para startups e empresas.",
   sameAs: [site.social.linkedin],
 };

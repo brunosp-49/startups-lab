@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { ArrowRight, CheckCircle, CircleNotch } from "@phosphor-icons/react";
+import { track } from "@/lib/analytics";
 import { Chips, Field, Honeypot, isEmail } from "./FormFields";
 
 type Status = "idle" | "sending" | "error" | "done";
@@ -17,6 +18,7 @@ function useSubmit(type: "contato" | "carreira") {
         body: JSON.stringify({ type, ...payload }),
       });
       if (!res.ok) throw new Error();
+      if (type === "contato") track("generate_lead", { form_name: "contato" });
       setStatus("done");
     } catch {
       setStatus("error");

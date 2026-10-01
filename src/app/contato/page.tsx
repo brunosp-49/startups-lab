@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import type { Metadata } from "next";
 import {
   ArrowUpRight,
@@ -12,6 +13,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { PageHero } from "@/components/ui/PageHero";
 import { WordMarquee } from "@/components/ui/WordMarquee";
 import { ContactForm } from "@/components/ui/InlineForms";
+import { WhatsAppLink } from "@/components/WhatsAppLink";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -41,14 +43,7 @@ export default function ContatoPage() {
         <div className="mx-auto grid max-w-[1320px] gap-14 px-5 md:px-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
           <div className="flex flex-col gap-4">
             {channels.map(({ icon: IconCmp, label, value, href, external }) => (
-              <a
-                key={label}
-                href={href}
-                target={external ? "_blank" : undefined}
-                rel={external ? "noreferrer" : undefined}
-                data-reveal
-                className="group relative flex items-center gap-5 overflow-hidden rounded-[22px] border border-white/10 bg-[var(--ink-2)] p-5 transition-colors duration-500 hover:border-[var(--accent)]/50 md:p-6"
-              >
+              <Channel key={label} href={href} external={external}>
                 <span className="absolute inset-0 origin-left scale-x-0 bg-[var(--accent)] transition-transform duration-500 ease-[cubic-bezier(.7,0,.2,1)] group-hover:scale-x-100" />
                 <span className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white/[0.06] text-[var(--accent)] transition-colors duration-500 group-hover:bg-[var(--accent-ink)]">
                   <IconCmp weight="fill" className="h-6 w-6" />
@@ -62,7 +57,7 @@ export default function ContatoPage() {
                   </span>
                 </span>
                 <ArrowUpRight className="relative h-6 w-6 text-white/40 transition-all duration-500 group-hover:rotate-45 group-hover:text-[var(--accent-ink)]" />
-              </a>
+              </Channel>
             ))}
 
             <div data-reveal className="rounded-[22px] border border-white/10 p-6">
@@ -111,5 +106,32 @@ export default function ContatoPage() {
         <WordMarquee words={["hipótese", "protótipo", "produto", "tração", "escala"]} />
       </section>
     </Reveal>
+  );
+}
+
+function Channel({
+  href,
+  external,
+  children,
+}: {
+  href: string;
+  external?: boolean;
+  children: ReactNode;
+}) {
+  const className =
+    "group relative flex items-center gap-5 overflow-hidden rounded-[22px] border border-white/10 bg-[var(--ink-2)] p-5 transition-colors duration-500 hover:border-[var(--accent)]/50 md:p-6";
+
+  if (external) {
+    return (
+      <WhatsAppLink place="contato" href={href} data-reveal className={className}>
+        {children}
+      </WhatsAppLink>
+    );
+  }
+
+  return (
+    <a href={href} data-reveal className={className}>
+      {children}
+    </a>
   );
 }

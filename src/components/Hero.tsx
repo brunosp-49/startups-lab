@@ -184,8 +184,8 @@ export function Hero() {
           <div data-hero-fade className="max-w-md">
             <p className="text-lg leading-snug text-white md:text-xl">Tem uma ideia. A gente coloca ela no ar.</p>
             <p className="mt-3 text-base leading-relaxed text-white/70 md:text-lg">
-              Transformamos ideias em MVPs, aplicativos e softwares prontos para chegar ao mercado e
-              evoluir.
+              Desenvolvimento de MVPs, aplicativos, SaaS e softwares sob medida para startups e
+              empresas.
             </p>
           </div>
 

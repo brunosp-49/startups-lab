@@ -13,6 +13,7 @@ import {
   Phone,
 } from "@phosphor-icons/react";
 import { BrandLockup } from "./BrandLockup";
+import { openCookieSettings } from "@/lib/analytics";
 import { nav, site } from "@/lib/site";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -159,8 +160,11 @@ export function Footer() {
       </div>
 
       <div className="relative border-t border-white/10">
-        <p className="mx-auto max-w-[1320px] px-5 py-7 text-center text-sm text-white/55 md:px-10">
-          Startups Lab™ {new Date().getFullYear()}. Todos os direitos reservados.
+        <p className="mx-auto flex max-w-[1320px] flex-wrap items-center justify-center gap-x-4 gap-y-2 px-5 py-7 text-center text-sm text-white/55 md:px-10">
+          <span>Startups Lab™ {new Date().getFullYear()}. Todos os direitos reservados.</span>
+          <button type="button" onClick={openCookieSettings} className="underline decoration-white/30 underline-offset-4 hover:text-white">
+            Cookies
+          </button>
         </p>
       </div>
     </footer>

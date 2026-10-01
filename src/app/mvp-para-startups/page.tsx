@@ -12,9 +12,9 @@ import { JsonLd } from "@/components/ui/JsonLd";
 import { serviceJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Desenvolvimento de MVP para startups",
+  title: "Desenvolvimento de MVP para Startups",
   description:
-    "Desenvolvimento de MVP para startups: da ideia ao protótipo e à primeira versão no ar, sem montar um time de tecnologia.",
+    "Transforme sua ideia em um MVP funcional. A Startups Lab ajuda startups a validar, prototipar, desenvolver e lançar a primeira versão do produto.",
   alternates: { canonical: "/mvp-para-startups" },
 };
 
@@ -66,10 +66,10 @@ export default function MvpPage() {
       />
       <PageHero
         eyebrow="Soluções · MVP"
-        title={["Desenvolvimento", "de MVP."]}
-        text="Você não precisa ter uma empresa de tecnologia para tirar a startup do papel. A Startups Lab recorta a ideia, prototipa e constrói o produto inicial."
+        title={["Desenvolvimento", "de MVP para", "startups."]}
+        text="Uma empresa para criar o MVP da sua startup: validação, protótipo, desenvolvimento e a primeira versão no ar. Sem precisar montar um time de tecnologia."
         crumbs={[
-          { label: "Soluções", href: "/desenvolvimento-de-aplicativos" },
+          { label: "Soluções", href: "/desenvolvimento-de-produtos-digitais" },
           { label: "MVP" },
         ]}
         image={{ src: "/images/startups.jpg", alt: "Desenvolvimento de MVP para startups" }}
@@ -96,6 +96,10 @@ export default function MvpPage() {
             . Se é um sistema web, em{" "}
             <Link href="/desenvolvimento-de-software" className="text-white underline decoration-white/30 underline-offset-4">
               software sob medida
+            </Link>
+            . Se a ideia é um produto com assinatura, em{" "}
+            <Link href="/desenvolvimento-de-saas" className="text-white underline decoration-white/30 underline-offset-4">
+              desenvolvimento de SaaS
             </Link>
             .
           </p>

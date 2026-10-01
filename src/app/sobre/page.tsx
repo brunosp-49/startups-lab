@@ -1,16 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import {
-  Brain,
-  ChartLineUp,
-  Code,
-  Compass,
-  GearSix,
-  Layout,
-  PenNib,
-  Wallet,
-} from "@phosphor-icons/react/dist/ssr";
-import type { Icon } from "@phosphor-icons/react";
 import { Reveal } from "@/components/ui/Reveal";
 import { PageHero } from "@/components/ui/PageHero";
 import { SectionIntro } from "@/components/ui/SectionIntro";
@@ -19,24 +8,14 @@ import { CTASection } from "@/components/ui/CTASection";
 import Link from "next/link";
 import { LeadButton } from "@/components/ui/LeadButton";
 import { Pillars } from "@/components/Pillars";
-import { team, values } from "@/lib/content";
+import { TeamCards } from "@/components/TeamCards";
+import { values } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Empresa de desenvolvimento de software",
   description:
     "A Startups Lab é uma empresa de desenvolvimento de software e aplicativos para startups. Um laboratório que tira ideias do papel e coloca produtos no ar.",
   alternates: { canonical: "/sobre" },
-};
-
-const roleIcons: Record<string, Icon> = {
-  "Direção executiva": Compass,
-  Operações: GearSix,
-  Tecnologia: Code,
-  "Marketing & Growth": ChartLineUp,
-  "IA & Automação": Brain,
-  "Design UI/UX": Layout,
-  "Design de marca": PenNib,
-  Financeiro: Wallet,
 };
 
 export default function SobrePage() {
@@ -177,32 +156,7 @@ export default function SobrePage() {
             text="Cada área tem alguém que vive aquilo todos os dias. A IA entra para acelerar o trabalho — o critério continua com as pessoas."
             align="split"
           />
-          <div className="mt-16 grid grid-cols-2 gap-4 md:gap-5 lg:grid-cols-4">
-            {team.map((m, i) => {
-              const RoleIcon = roleIcons[m.role] ?? Compass;
-              return (
-                <div
-                  key={m.role}
-                  data-reveal
-                  className="group relative flex aspect-[4/5] flex-col justify-between overflow-hidden rounded-[24px] border border-white/10 bg-[var(--ink-2)] p-5 transition-colors duration-500 hover:border-white/25 md:p-7"
-                >
-                  <span
-                    className="pointer-events-none absolute -right-20 -top-20 h-60 w-60 rounded-full opacity-30 blur-3xl transition-opacity duration-700 group-hover:opacity-70"
-                    style={{ background: i % 2 ? "#22d3ee" : "#3b82f6" }}
-                  />
-                  <span className="relative text-xs tabular-nums text-white/40">0{i + 1}</span>
-                  <RoleIcon
-                    weight="thin"
-                    className="relative h-20 w-20 self-center text-white/80 transition-all duration-700 group-hover:scale-110 group-hover:text-[var(--accent)] md:h-28 md:w-28"
-                  />
-                  <div className="relative">
-                    <p className="text-lg font-medium leading-tight text-white md:text-xl">{m.role}</p>
-                    <p className="mt-1 text-sm text-white/45">{m.area}</p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+          <TeamCards />
           <p data-reveal className="mt-10 text-[15px] text-white/60">
             Quer construir com a gente?{" "}
             <Link href="/carreira" className="text-white underline decoration-white/30 underline-offset-4 hover:decoration-white">

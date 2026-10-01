@@ -2,6 +2,17 @@
 
 export const isEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
 
+export function maskPhone(raw: string) {
+  let d = raw.replace(/\D/g, "");
+  if (d.startsWith("55") && d.length > 11) d = d.slice(2);
+  d = d.slice(0, 11);
+  if (d.length === 0) return "";
+  if (d.length <= 2) return `(${d}`;
+  if (d.length <= 6) return `(${d.slice(0, 2)}) ${d.slice(2)}`;
+  if (d.length <= 10) return `(${d.slice(0, 2)}) ${d.slice(2, 6)}-${d.slice(6)}`;
+  return `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`;
+}
+
 export function Chips({
   options,
   value,
@@ -73,9 +84,10 @@ export function Field({
       ) : (
         <input
           type={type}
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
+          value={type === "tel" ? maskPhone(value) : value}
+          onChange={(e) => onChange(type === "tel" ? maskPhone(e.target.value) : e.target.value)}
           autoComplete={autoComplete}
+          inputMode={type === "tel" ? "numeric" : undefined}
           placeholder=" "
           className={`${base} h-[60px] pt-5`}
         />

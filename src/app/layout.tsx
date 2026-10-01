@@ -8,7 +8,9 @@ import { LeadForm } from "@/components/LeadForm";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingActions } from "@/components/FloatingActions";
+import { Analytics } from "@/components/Analytics";
 import { JsonLd } from "@/components/ui/JsonLd";
+import { CONSENT_KEY, GOOGLE_ADS_ID } from "@/lib/analytics";
 import { organizationJsonLd, siteUrl } from "@/lib/seo";
 const interTight = Inter_Tight({
   variable: "--font-inter-tight",
@@ -24,7 +26,7 @@ export const metadata: Metadata = {
     template: "%s | Startups Lab",
   },
   description:
-    "Transformamos ideias em aplicativos, MVPs e produtos digitais. Desenvolvimento de apps Android e iOS, software, backend e IA para startups.",
+    "Desenvolvimento de MVPs, aplicativos Android e iOS, SaaS e software sob medida para startups e empresas.",
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
@@ -41,6 +43,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" className={interTight.variable}>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;var granted=false;try{granted=localStorage.getItem(${JSON.stringify(CONSENT_KEY)})==="granted";}catch(e){}var state=granted?"granted":"denied";gtag("consent","default",{ad_storage:state,ad_user_data:state,ad_personalization:state,analytics_storage:state,wait_for_update:500});gtag("js",new Date());gtag("config",${JSON.stringify(GOOGLE_ADS_ID)});`,
+          }}
+        />
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ADS_ID}`} />
+      </head>
       <body>
         <JsonLd data={organizationJsonLd} />
         <Preloader />
@@ -51,7 +61,9 @@ export default function RootLayout({
           <Footer />
           <FloatingActions />
         </SmoothScroll>
-        <LeadForm />      </body>
+        <LeadForm />
+        <Analytics />
+      </body>
     </html>
   );
 }

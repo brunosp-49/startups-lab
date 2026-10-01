@@ -39,7 +39,7 @@ export default function GrowthPage() {
         eyebrow="Complemento · Growth"
         title={["Crescer o", "produto que", "já está no ar."]}
         text="Marketing e aquisição existem aqui como complemento. A Startups Lab é uma empresa de produto e tecnologia — growth entra quando o produto pede usuários."
-        crumbs={[{ label: "Soluções" }, { label: "Growth" }]}
+        crumbs={[{ label: "Soluções", href: "/desenvolvimento-de-produtos-digitais" }, { label: "Growth" }]}
         image={{ src: "/images/assessoria.jpg", alt: "Acompanhamento de aquisição de um produto" }}
       >
         <LeadButton services={["marketing"]}>Falar sobre aquisição</LeadButton>

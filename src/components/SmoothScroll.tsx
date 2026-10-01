@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { onReady } from "@/lib/ready";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -34,8 +35,14 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
 
     const refresh = () => ScrollTrigger.refresh();
     window.addEventListener("load", refresh);
+    const offReady = onReady(() => {
+      lenis.start();
+      lenis.resize();
+      ScrollTrigger.refresh();
+    });
 
     return () => {
+      offReady();
       window.removeEventListener("load", refresh);
       gsap.ticker.remove(raf);
       lenis.destroy();

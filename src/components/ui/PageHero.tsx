@@ -50,8 +50,8 @@ export function PageHero({ eyebrow, title, text, crumbs, image, children }: Prop
         const tl = gsap
           .timeline({ defaults: { ease: "expo.out" } })
           .to("[data-ph-line] > span", { yPercent: 0, duration: 1.3, stagger: 0.09 }, 0.1)
-          .to("[data-ph-fade]", { opacity: 1, y: 0, duration: 1, stagger: 0.08 }, 0.5)
-          .to(path ?? {}, { strokeDashoffset: 0, duration: 2.4, ease: "power2.inOut" }, 0.2);
+          .to("[data-ph-fade]", { opacity: 1, y: 0, duration: 1, stagger: 0.08 }, 0.5);
+        if (path) tl.to(path, { strokeDashoffset: 0, duration: 2.4, ease: "power2.inOut" }, 0.2);
         if (image) {
           tl.to("[data-ph-image]", { clipPath: "inset(0% 0% 0% 0% round 28px)", duration: 1.6, ease: "expo.inOut" }, 0.4)
             .to("[data-ph-image] img", { scale: 1.08, duration: 2, ease: "expo.out" }, 0.4);
@@ -143,7 +143,13 @@ export function PageHero({ eyebrow, title, text, crumbs, image, children }: Prop
           {eyebrow}
         </p>
 
-        <h1 className="mt-7 max-w-[15ch] text-[clamp(2.7rem,7vw,6.6rem)] font-medium leading-[0.98] tracking-[-0.045em] text-white">
+        <h1
+          className={`mt-7 font-medium leading-[0.98] tracking-[-0.045em] text-white ${
+            title.length > 3
+              ? "max-w-[16ch] text-[clamp(2.15rem,5vw,4.4rem)]"
+              : "max-w-[15ch] text-[clamp(2.7rem,7vw,6.6rem)]"
+          }`}
+        >
           {title.map((line, i) => (
             <span key={line} data-ph-line className="split-line">
               <span>
@@ -178,6 +184,7 @@ export function PageHero({ eyebrow, title, text, crumbs, image, children }: Prop
               alt={image.alt}
               fill
               preload
+              loading="eager"
               sizes="(min-width: 1320px) 1240px, 100vw"
               className="object-cover"
             />

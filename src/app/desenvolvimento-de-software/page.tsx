@@ -13,9 +13,9 @@ import { JsonLd } from "@/components/ui/JsonLd";
 import { serviceJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Desenvolvimento de software sob medida",
+  title: "Desenvolvimento de Software e SaaS",
   description:
-    "Software sob medida para startups e empresas: sistemas web, SaaS, plataformas digitais, backend e APIs.",
+    "Empresa de desenvolvimento de software: sistemas sob medida, sistema web, plataforma digital, SaaS, backend e APIs para startups e empresas.",
   alternates: { canonical: "/desenvolvimento-de-software" },
 };
 
@@ -64,10 +64,10 @@ export default function SoftwarePage() {
       />
       <PageHero
         eyebrow="Soluções · Software"
-        title={["Software", "sob medida."]}
-        text="Sistemas web, SaaS, plataformas e o backend que segura o produto. A Startups Lab desenvolve o software que a operação ou o cliente realmente usa."
+        title={["Desenvolvimento", "de software,", "SaaS e sistemas", "sob medida."]}
+        text="Sistemas web, plataformas digitais e o backend que segura o produto. Se a ideia é um produto com assinatura, o caminho específico é a página de desenvolvimento de SaaS."
         crumbs={[
-          { label: "Soluções", href: "/desenvolvimento-de-aplicativos" },
+          { label: "Soluções", href: "/desenvolvimento-de-produtos-digitais" },
           { label: "Software" },
         ]}
         image={{ src: "/images/software.jpg", alt: "Desenvolvimento de software sob medida" }}
@@ -90,6 +90,10 @@ export default function SoftwarePage() {
             Para Android e iOS, veja{" "}
             <Link href="/desenvolvimento-de-aplicativos" className="text-white underline decoration-white/30 underline-offset-4">
               desenvolvimento de aplicativos
+            </Link>
+            . Para um produto com assinatura, veja{" "}
+            <Link href="/desenvolvimento-de-saas" className="text-white underline decoration-white/30 underline-offset-4">
+              desenvolvimento de SaaS
             </Link>
             .
           </p>

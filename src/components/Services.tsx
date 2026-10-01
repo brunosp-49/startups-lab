@@ -8,9 +8,9 @@ import {
   ArrowDown,
   Brain,
   ChartLineUp,
+  Cloud,
   Code,
   DeviceMobile,
-  Plugs,
   RocketLaunch,
   type Icon,
 } from "@phosphor-icons/react";
@@ -33,14 +33,14 @@ const services: { icon: Icon; title: string; text: string; href: string }[] = [
   {
     icon: Code,
     title: "Software e sistemas",
-    text: "SaaS, portais e sistemas internos. O fluxo do negócio vira produto, não uma coleção de planilhas.",
+    text: "Sistemas web e software sob medida. O fluxo do negócio vira produto, não uma coleção de planilhas.",
     href: "/desenvolvimento-de-software",
   },
   {
-    icon: Plugs,
-    title: "Backend e APIs",
-    text: "A parte que o usuário não vê: dados, integrações, painel e infra para o produto aguentar o uso.",
-    href: "/desenvolvimento-de-software",
+    icon: Cloud,
+    title: "SaaS",
+    text: "Produto com cadastro, assinatura e painel. Do recorte inicial até a versão que o primeiro cliente usa.",
+    href: "/desenvolvimento-de-saas",
   },
   {
     icon: Brain,
